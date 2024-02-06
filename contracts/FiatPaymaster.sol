@@ -9,7 +9,7 @@ import {TransactionHelper, Transaction} from "@matterlabs/zksync-contracts/l2/sy
 
 import "@matterlabs/zksync-contracts/l2/system-contracts/Constants.sol";
 
-contract MyPaymaster is IPaymaster {
+contract FiatPaymaster is IPaymaster {
     uint256 constant PRICE_FOR_PAYING_FEES = 1;
 
     address public allowedToken;
@@ -76,6 +76,10 @@ contract MyPaymaster is IPaymaster {
             // neither paymaster nor account are allowed to access this context variable.
             uint256 requiredETH = _transaction.gasLimit *
                 _transaction.maxFeePerGas;
+
+            // TODO: amount should be calculated based on the oracle result
+            // equal amount of ERC20 token of the base token should be transferred from the user to the paymaster
+            // here just to simplify the example we assume that the amount is fixed
 
             try
                 IERC20(token).transferFrom(userAddress, thisAddress, amount)

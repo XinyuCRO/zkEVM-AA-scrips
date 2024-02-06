@@ -36,20 +36,23 @@ yarn use:aa
 ```
 
 
-## Paymaster 
+## Fiat Paymaster 
 
-### 1. Deploy a Paymaster
+### 1. Deploy a Fiat Paymaster
 
 ```
 yarn deploy:paymaster
 ```
 
-- Deploy an ERC20 token contract
-- Deploy an `approvalBased` flow only paymaster contract, only sponsor the transaction happended related to ERC20 token deployed in the above step
+- Deploy the ERC20 token contract
+- Deploy an `approvalBased` flow  paymaster contract
 - Fund the paymaster contract with some baseTokens
 
-### 2. Use Paymaster to sponsor a transaction(ERC20 mint)
+### 2. Use Paymaster to help Account trnasact with ERC20 token as gas
 
 ```
 yarn use:paymaster
 ```
+
+- Account make a transaction with `paymasterParams` set
+- Paymaster will help the account to pay the gas fee with the equal amount of ERC20 token

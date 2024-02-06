@@ -32,7 +32,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     console.log(`ERC20 address: ${erc20.address}`);
 
     // Deploying the paymaster
-    const paymasterArtifact = await deployer.loadArtifact("MyPaymaster");
+    const paymasterArtifact = await deployer.loadArtifact("FiatPaymaster");
     const paymaster = await deployer.deploy(paymasterArtifact, [erc20.address]);
     console.log(`Paymaster address: ${paymaster.address}`);
 
@@ -47,7 +47,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
     let paymasterBalance = await provider.getBalance(paymaster.address);
 
-    console.log(`Paymaster ETH balance is now ${paymasterBalance.toString()}`);
+    console.log(`Paymaster baseToken balance is now ${paymasterBalance.toString()}`);
 
     // Supplying the ERC20 tokens to the empty wallet:
     await // We will give the empty wallet 3 units of the token:

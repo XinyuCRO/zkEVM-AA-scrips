@@ -20,7 +20,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
   const owner = new Wallet(SMART_ACCOUNT_OWNER_PK, provider);
 
-  // account that will receive the ETH transfer
+  // account that will receive the baseToken transfer
   const receiver = RECEIVER_ADDRESS;
   // ⚠️ update this amount to test if the limit works; 0.00051 fails but 0.0049 succeeds
   const transferAmount = "0.000001";
@@ -56,7 +56,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   const account = new Contract(SMART_ACCOUNT_ADDRESS, accountArtifact.abi, owner);
   const limitData = await account.limits(ETH_ADDRESS);
 
-  console.log("Account ETH limit is: ", limitData.limit.toString());
+  console.log("Account baseToken limit is: ", limitData.limit.toString());
   console.log("Available today: ", limitData.available.toString());
 
   // L1 timestamp tends to be undefined in latest blocks. So it should find the latest L1 Batch first.
@@ -71,11 +71,11 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     limitData.resetTime.toString(),
   );
 
-  // actually do the ETH transfer
-  console.log("Sending ETH transfer from smart contract account");
+  // actually do the baseToken transfer
+  console.log("Sending baseToken transfer from smart contract account");
   const sentTx = await provider.sendTransaction(utils.serialize(ethTransferTx));
   await sentTx.wait();
-  console.log(`ETH transfer tx hash is ${sentTx.hash}`);
+  console.log(`baseToken transfer tx hash is ${sentTx.hash}`);
 
   console.log("Transfer completed and limits updated!");
 
